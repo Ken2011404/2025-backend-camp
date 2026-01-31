@@ -1,63 +1,74 @@
-const { EntitySchema } = require('typeorm')
+/**
+ * 堂數方案資料表
+ *
+ * 欄位說明：
+ * - id: 方案編號（UUID）
+ * - name: 方案名稱
+ * - credit_amount: 包含堂數
+ * - price: 方案價格
+ * - createdAt: 建立時間
+ */
+
+const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: 'CreditPurchase',
-  tableName: 'CREDIT_PURCHASE',
+  name: "CreditPurchase",
+  tableName: "CREDIT_PURCHASE",
   columns: {
     id: {
       primary: true,
-      type: 'uuid',
-      generated: 'uuid',
-      nullable: false
+      type: "uuid",
+      generated: "uuid",
+      nullable: false,
     },
     user_id: {
-      type: 'uuid',
-      nullable: false
+      type: "uuid",
+      nullable: false,
     },
     credit_package_id: {
-      type: 'uuid',
-      nullable: false
+      type: "uuid",
+      nullable: false,
     },
     purchased_credits: {
-      type: 'integer',
-      nullable: false
+      type: "integer",
+      nullable: false,
     },
     price_paid: {
-      type: 'numeric',
+      type: "numeric",
       precision: 10,
       scale: 2,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
-      type: 'timestamp',
+      type: "timestamp",
       createDate: true,
-      name: 'created_at',
-      nullable: false
+      name: "created_at",
+      nullable: false,
     },
     purchaseAt: {
-      type: 'timestamp',
-      name: 'purchase_at',
-      nullable: false
-    }
+      type: "timestamp",
+      name: "purchase_at",
+      nullable: false,
+    },
   },
   relations: {
     User: {
-      target: 'User',
-      type: 'many-to-one',
+      target: "User",
+      type: "many-to-one",
       joinColumn: {
-        name: 'user_id',
-        referencedColumnName: 'id',
-        foreignKeyConstraintName: 'credit_purchase_user_id_fk'
-      }
+        name: "user_id",
+        referencedColumnName: "id",
+        foreignKeyConstraintName: "credit_purchase_user_id_fk",
+      },
     },
     CreditPackage: {
-      target: 'CreditPackage',
-      type: 'many-to-one',
+      target: "CreditPackage",
+      type: "many-to-one",
       joinColumn: {
-        name: 'credit_package_id',
-        referencedColumnName: 'id',
-        foreignKeyConstraintName: 'credit_purchase_credit_package_id_fk'
-      }
-    }
-  }
-})
+        name: "credit_package_id",
+        referencedColumnName: "id",
+        foreignKeyConstraintName: "credit_purchase_credit_package_id_fk",
+      },
+    },
+  },
+});
